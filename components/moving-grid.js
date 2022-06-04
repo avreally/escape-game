@@ -7,24 +7,16 @@ AFRAME.registerComponent("moving-grid", {
   },
 
   init: function () {
-    // var scene = this.el.sceneEl.object3D;
-    // var camera = new THREE.PerspectiveCamera(
-    //   60,
-    //   window.innerWidth / window.innerHeight,
-    //   1,
-    //   1000
-    // );
-    // camera.position.set(0, 10, 50);
-    // camera.lookAt(scene.position);
-    // var renderer = new THREE.WebGLRenderer({ antialias: true });
-    // renderer.setSize(window.innerWidth, window.innerHeight);
-    // document.querySelector("body").appendChild(renderer.domElement);
-    //
     var el = this.el;
 
     var division = 20;
     var limit = 100;
-    this.grid = new THREE.GridHelper(limit * 2, division, "blue", "blue");
+    this.grid = new THREE.GridHelper(
+      limit * 2,
+      division,
+      "turquoise",
+      "turquoise"
+    );
 
     var moveable = [];
     for (let i = 0; i <= division; i++) {
@@ -78,38 +70,6 @@ AFRAME.registerComponent("moving-grid", {
     });
 
     el.setObject3D("mesh", this.grid);
-
-    // var data = this.data;
-
-    // // Create geometry.
-    // this.geometry = new THREE.BoxBufferGeometry(
-    //   data.width,
-    //   data.height,
-    //   data.depth
-    // );
-    //
-    // // Create material.
-    // this.material = new THREE.MeshStandardMaterial({ color: data.color });
-    //
-    // // Create mesh.
-    // this.mesh = new THREE.Mesh(this.geometry, this.material);
-    //
-    // // Set mesh on entity.
-    // el.setObject3D("mesh", this.mesh);
-
-    // scene.add(grid);
-
-    // var clock = new THREE.Clock();
-    // var time = 0;
-    //
-    // function render() {
-    //   requestAnimationFrame(render);
-    //   time += clock.getDelta();
-    //   grid.material.uniforms.time.value = time;
-    //   renderer.render(scene);
-    //   // renderer.render(scene, camera);
-    // }
-    // render();
   },
 
   tick: function (time, timeDelta) {
