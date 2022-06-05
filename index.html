@@ -2,7 +2,6 @@
   <head>
     <script src="https://unpkg.com/aframe@1.3.0"></script>
     <script src="components/moving-grid.js"></script>
-    <!--    <script src="index.js" defer></script>-->
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -27,6 +26,7 @@
       <a-entity moving-grid position="0 0 -10"></a-entity>
       <a-box color="red" position="0 0.5 30"></a-box>
       <a-text
+        id="screamText"
         value="Scream if you wanna go faster"
         position="0 15 40"
         scale="4 4 4"
@@ -35,6 +35,9 @@
         font="assets/fonts/Electrolize-Regular-msdf.json"
         font-image="assets/fonts/Electrolize-Regular.png"
         negate="false"
+        opacity="0"
+        animation__fadein="property: text.opacity; from: 0; to: 1; delay: 5000"
+        animation__fadeout="property: text.opacity; from: 1; to: 0; delay: 8000"
       >
       </a-text>
     </a-scene>
