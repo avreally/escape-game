@@ -1,11 +1,4 @@
 AFRAME.registerComponent("moving-grid", {
-  schema: {
-    width: { type: "number", default: 1 },
-    height: { type: "number", default: 1 },
-    depth: { type: "number", default: 1 },
-    color: { type: "color", default: "#555" },
-  },
-
   init: function () {
     this.magnitude = 0;
 
@@ -24,7 +17,7 @@ AFRAME.registerComponent("moving-grid", {
     for (let i = 0; i <= division; i++) {
       moveable.push(1, 1, 0, 0); // move horizontal lines only (1 - point is moveable)
     }
-    this.grid.geometry.addAttribute(
+    this.grid.geometry.setAttribute(
       "moveable",
       new THREE.BufferAttribute(new Uint8Array(moveable), 1)
     );
