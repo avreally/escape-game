@@ -85,11 +85,11 @@ AFRAME.registerComponent("moving-grid", {
                     console.error("Reader has been canceled");
                     break;
                   }
-                  const view = new DataView(value.buffer, 0);
-                  const magnitude = view.getFloat32(0, true);
-
                   if (value.length === 5) {
-                    // console.log(value.length, magnitude);
+                    const view = new DataView(value.buffer, 0);
+                    const magnitude = view.getFloat32(0, true);
+
+                    console.log(magnitude);
                     this.magnitude = magnitude;
                   }
                 }
