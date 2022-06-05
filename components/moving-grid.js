@@ -1,6 +1,12 @@
 AFRAME.registerComponent("moving-grid", {
   init: function () {
     this.magnitude = 0;
+    this.averageVolumeReached = false;
+    this.maxVolumeReached = false;
+    this.nitro = 0;
+
+    this.louderShown = false;
+    this.yeahShown = false;
 
     var el = this.el;
 
@@ -104,12 +110,71 @@ AFRAME.registerComponent("moving-grid", {
             console.error("Port is not selected", err);
           });
       });
+
+    this.louderTextEl = document.getElementById("louderText");
+    this.yeahTextEl = document.getElementById("yeahText");
+
+    this.louderTextEl.setAttribute("animation__louder__fadein", {
+      property: "text.opacity",
+      from: 0,
+      to: 1,
+      startEvents: "showLouderText",
+    });
+
+    this.louderTextEl.setAttribute("animation__louder__fadeout", {
+      property: "text.opacity",
+      from: 1,
+      to: 0,
+      startEvents: "showLouderText",
+      delay: 3000,
+    });
+
+    this.yeahTextEl.setAttribute("animation__yeah__fadein", {
+      property: "text.opacity",
+      from: 0,
+      to: 1,
+      startEvents: "showYeahText",
+    });
+
+    this.yeahTextEl.setAttribute("animation__yeah__fadeout", {
+      property: "text.opacity",
+      from: 1,
+      to: 0,
+      startEvents: "showYeahText",
+      delay: 3000,
+    });
   },
 
   tick: function (time, timeDelta) {
     this.grid.material.uniforms.time.value = time;
-    this.grid.material.uniforms.speed.value = time * 0.0000001 + 0.01;
-    // this.grid.material.uniforms.speed.value = this.magnitude * 0.0001;
-    // console.log(this.grid.material.uniforms.speed.value);
+    this.grid.material.uniforms.speed.value =
+      time * 0.0000001 + 0.01 + this.nitro;
+
+    const averageVolume = 500;
+    const maxVolume = 1500;
+
+    if (this.magnitude > averageVolume) {
+      this.averageVolumeReached = true;
+    }
+
+    if (this.magnitude > maxVolume) {
+      // this.nitro = 10;
+      this.maxVolumeReached = true;
+    }
+
+    if (this.averageVolumeReached && !this.louderShown) {
+      console.log("louder");
+      this.louderShown = true;
+      this.louderTextEl.emit("showLouderText", null, false);
+    }
+
+    if (this.maxVolumeReached && !this.yeahShown) {
+      this.yeahShown = true;
+      console.log("yeah!");
+      // this.grid.material.uniforms.speed.value =
+      //   time * 0.0000001 + 0.01 * this.nitro;
+      this.nitro = 0.05;
+      this.yeahTextEl.emit("showYeahText", null, false);
+    }
   },
 });
