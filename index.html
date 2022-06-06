@@ -43,11 +43,22 @@
           preload
           crossorigin="anonymous"
         ></audio>
+        <a-asset-item id="pigeon" src="assets/models/duck.obj"></a-asset-item>
+        <a-asset-item
+          id="pigeon-mtl"
+          src="assets/models/duck.mtl"
+        ></a-asset-item>
       </a-assets>
       <a-entity camera position="0 10 50"></a-entity>
       <a-sound src="#music"></a-sound>
       <a-entity moving-grid position="0 0 -10"></a-entity>
-      <a-box color="red" position="0 0.5 30"></a-box>
+      <a-obj-model
+        src="#pigeon"
+        mtl="#pigeon-mtl"
+        position="0 0.5 30"
+        scale="4 4 4"
+        light="type: hemisphere; color: #2d00f7; groundColor: #3C3; intensity: 6"
+      ></a-obj-model>
       <a-text
         id="screamText"
         value="Scream if you wanna go faster"
