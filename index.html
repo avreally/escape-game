@@ -43,21 +43,34 @@
           preload
           crossorigin="anonymous"
         ></audio>
-        <a-asset-item id="pigeon" src="assets/models/duck.obj"></a-asset-item>
+        <a-asset-item id="duck" src="assets/models/duck.obj"></a-asset-item>
+        <a-asset-item id="duck-mtl" src="assets/models/duck.mtl"></a-asset-item>
         <a-asset-item
-          id="pigeon-mtl"
-          src="assets/models/duck.mtl"
+          id="duck-wire"
+          src="assets/models/duck_wireframe.obj"
+        ></a-asset-item>
+        <a-asset-item
+          id="duck-wire-mtl"
+          src="assets/models/duck_wireframe.mtl"
         ></a-asset-item>
       </a-assets>
       <a-entity camera position="0 10 50"></a-entity>
       <a-sound src="#music"></a-sound>
       <a-entity moving-grid position="0 0 -10"></a-entity>
       <a-obj-model
-        src="#pigeon"
-        mtl="#pigeon-mtl"
+        src="#duck"
+        mtl="#duck-mtl"
         position="0 0.5 30"
         scale="4 4 4"
-        light="type: hemisphere; color: #2d00f7; groundColor: #3C3; intensity: 6"
+        light="type: hemisphere; color: #e9ff70; groundColor: #3C3; intensity: 6"
+        animation="property: rotation; dir: normal; dur: 1500; loop: true; easing: linear; to: 0 360 0;"
+      ></a-obj-model>
+      <a-obj-model
+        src="#duck-wire"
+        mtl="#duck-wire-mtl"
+        position="0 0.5 30"
+        scale="4 4 4"
+        animation="property: rotation; dir: normal; dur: 1500; loop: true; easing: linear; to: 0 360 0;"
       ></a-obj-model>
       <a-text
         id="screamText"
