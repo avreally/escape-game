@@ -92,5 +92,26 @@ while True:
 
     usb_cdc.data.write(bytearray(struct.pack("f", magnitude)) + b"\x00")
 
+        # Compute scaled logarithmic reading in the range 0 to NUM_PIXELS
+    c = log_scale(constrain(magnitude, input_floor, input_ceiling),
+                  input_floor, input_ceiling, 0, NUM_PIXELS)
+
+    # print(c)
+
+    # Light up pixels that are below the scaled and interpolated magnitude.
+    pixels.fill(0)
+    for i in range(NUM_PIXELS):
+        if i < c:
+            pixels[i] = volume_color(i)
+        # Light up the peak pixel and animate it slowly dropping.
+        if c >= peak:
+            peak = min(c, NUM_PIXELS - 1)
+        elif peak > 0:
+            peak = peak - 1
+        if peak > 0:
+            pixels[int(peak)] = PEAK_COLOR
+    pixels.show()
+
+
 
 
