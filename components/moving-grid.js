@@ -150,6 +150,12 @@ AFRAME.registerComponent("moving-grid", {
     this.grid.material.uniforms.speed.value =
       time * 0.0000001 + 0.01 + this.nitro;
 
+    const displayedSpeed = Math.round(
+      this.grid.material.uniforms.speed.value * 10000 - 100
+    );
+
+    document.getElementById("speed").innerHTML = "speed: " + displayedSpeed;
+
     const averageVolume = 500;
     const maxVolume = 1500;
 
