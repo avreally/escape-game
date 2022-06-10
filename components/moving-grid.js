@@ -156,8 +156,8 @@ AFRAME.registerComponent("moving-grid", {
 
     document.getElementById("speed").innerHTML = "speed: " + displayedSpeed;
 
-    const averageVolume = 500;
-    const maxVolume = 1500;
+    const averageVolume = 1000;
+    const maxVolume = 2000;
 
     if (this.magnitude > averageVolume) {
       this.averageVolumeReached = true;

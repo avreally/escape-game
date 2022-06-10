@@ -74,14 +74,14 @@ mic.record(samples, len(samples))
 # Set lowest level to expect, plus a little.
 # input_floor = normalized_rms(samples) + 10
 # OR: used a fixed floor
-input_floor = 50
+input_floor = 100
 
 # You might want to print the input_floor to help adjust other values.
 # print(input_floor)
 
 # Corresponds to sensitivity: lower means more pixels light up with lower sound
 # Adjust this as you see fit.
-input_ceiling = input_floor + 1000
+input_ceiling = input_floor + 1500
 
 peak = 0
 while True:
