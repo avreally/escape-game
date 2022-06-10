@@ -143,6 +143,39 @@ AFRAME.registerComponent("moving-grid", {
       startEvents: "showYeahText",
       delay: 3000,
     });
+
+    this.duckInsideEl = document.getElementById("duck-inside");
+    this.duckOutsideEl = document.getElementById("duck-outside");
+    this.duckObj = document.getElementById("duckObj");
+
+    console.log(this.duckOutsideEl.object3D.position.x);
+    // this.duckInsideEl.setAttribute("position", { x: 5, y: 0.5, z: 30 });
+    // this.duckInsideEl.object3D.position.set(5, 0.5, 30); // not working
+
+    const duckInside = this.duckInsideEl;
+    const duckOutside = this.duckOutsideEl;
+    const duckObj = this.duckObj;
+
+    const duckInsidePosition = duckInside.getAttribute("position");
+    // console.log(duckInsidePosition);
+    // console.log(duckInsidePosition.x);
+
+    document.onkeydown = checkKey;
+
+    function checkKey(e) {
+      if (e.keyCode == "37") {
+        // left arrow
+        const pos = duckObj.object3D.position;
+        console.log(pos);
+        if (pos.x < 10) {
+          duckObj.object3D.position.set(pos.x + 0.1, pos.y, pos.z);
+        }
+      } else if (e.keyCode == "39") {
+        // right arrow
+        //duckInside.setAttribute("position", { x: 4, y: 0.5, z: 30 });
+        //duckOutside.setAttribute("position", { x: 4, y: 0.5, z: 30 });
+      }
+    }
   },
 
   tick: function (time, timeDelta) {
