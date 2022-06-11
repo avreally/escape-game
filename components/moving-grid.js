@@ -144,38 +144,20 @@ AFRAME.registerComponent("moving-grid", {
       delay: 3000,
     });
 
-    this.duckInsideEl = document.getElementById("duck-inside");
-    this.duckOutsideEl = document.getElementById("duck-outside");
     this.duckObj = document.getElementById("duckObj");
 
-    console.log(this.duckOutsideEl.object3D.position.x);
-    // this.duckInsideEl.setAttribute("position", { x: 5, y: 0.5, z: 30 });
-    // this.duckInsideEl.object3D.position.set(5, 0.5, 30); // not working
+    this.keys = [];
 
-    const duckInside = this.duckInsideEl;
-    const duckOutside = this.duckOutsideEl;
-    const duckObj = this.duckObj;
+    document.addEventListener("keydown", (e) => {
+      this.keys[e.key] = true;
+      console.log(this.keys);
+      console.log("check", this.keys["ArrowLeft"]);
+    });
 
-    const duckInsidePosition = duckInside.getAttribute("position");
-    // console.log(duckInsidePosition);
-    // console.log(duckInsidePosition.x);
-
-    document.onkeydown = checkKey;
-
-    function checkKey(e) {
-      if (e.keyCode == "37") {
-        // left arrow
-        const pos = duckObj.object3D.position;
-        console.log(pos);
-        if (pos.x < 10) {
-          duckObj.object3D.position.set(pos.x + 0.1, pos.y, pos.z);
-        }
-      } else if (e.keyCode == "39") {
-        // right arrow
-        //duckInside.setAttribute("position", { x: 4, y: 0.5, z: 30 });
-        //duckOutside.setAttribute("position", { x: 4, y: 0.5, z: 30 });
-      }
-    }
+    document.addEventListener("keyup", (e) => {
+      this.keys[e.key] = false;
+      console.log(this.keys);
+    });
   },
 
   tick: function (time, timeDelta) {
@@ -197,7 +179,6 @@ AFRAME.registerComponent("moving-grid", {
     }
 
     if (this.magnitude > maxVolume) {
-      // this.nitro = 10;
       this.maxVolumeReached = true;
     }
 
@@ -210,10 +191,25 @@ AFRAME.registerComponent("moving-grid", {
     if (this.maxVolumeReached && !this.yeahShown) {
       this.yeahShown = true;
       console.log("yeah!");
-      // this.grid.material.uniforms.speed.value =
-      //   time * 0.0000001 + 0.01 * this.nitro;
       this.nitro = 0.05;
       this.yeahTextEl.emit("showYeahText", null, false);
+    }
+
+    const duckObj = this.duckObj;
+    const pos = this.duckObj.object3D.position;
+
+    //  Checking pressed keys
+    if (this.keys["ArrowLeft"]) {
+      console.log("inside if");
+      if (pos.x > -18) {
+        duckObj.object3D.position.set(pos.x - 0.7, pos.y, pos.z);
+      }
+    }
+
+    if (this.keys["ArrowRight"]) {
+      if (pos.x < 18) {
+        duckObj.object3D.position.set(pos.x + 0.7, pos.y, pos.z);
+      }
     }
   },
 });
