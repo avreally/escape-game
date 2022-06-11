@@ -18,13 +18,13 @@ AFRAME.registerComponent("player", {
     //  Checking pressed keys
     if (this.keys["ArrowLeft"]) {
       if (pos.x > -18) {
-        player.object3D.position.set(pos.x - 0.7, pos.y, pos.z);
+        player.object3D.position.set(pos.x - 0.5, pos.y, pos.z);
       }
     }
 
     if (this.keys["ArrowRight"]) {
       if (pos.x < 18) {
-        player.object3D.position.set(pos.x + 0.7, pos.y, pos.z);
+        player.object3D.position.set(pos.x + 0.5, pos.y, pos.z);
       }
     }
   },

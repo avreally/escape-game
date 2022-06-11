@@ -11,11 +11,12 @@ AFRAME.registerComponent("obstacles", {
     setInterval(() => {
       const x = Math.floor(Math.random() * (max - min) + min);
       const element = document.createElement("a-box");
-      element.object3D.position.set(x, 2.5, -100);
+      element.object3D.position.set(x, 2.5, -150);
       element.setAttribute("width", 5);
       element.setAttribute("height", 5);
       element.setAttribute("depth", 5);
       element.setAttribute("color", "magenta");
+      element.setAttribute("class", "collidable");
       this.elements.push({ element, initialTime: this.time });
       this.el.appendChild(element);
     }, 2000);
@@ -30,13 +31,13 @@ AFRAME.registerComponent("obstacles", {
   },
 
   tick() {
-    this.elements.forEach(({ element, initialTime }) => {
+    this.elements.forEach(({ element, initialTime }, index) => {
       const position = element.object3D.position;
-      position.set(
-        position.x,
-        position.y,
-        (this.time - initialTime) * this.speed - 100
-      );
+      position.setZ((this.time - initialTime) * this.speed - 150);
+      if (position.z > 50) {
+        this.elements.splice(index, 1);
+        this.el.removeChild(element);
+      }
     });
   },
 });
