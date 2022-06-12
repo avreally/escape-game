@@ -1,5 +1,6 @@
 AFRAME.registerComponent("player", {
   init: function () {
+    this.shields = 3;
     this.keys = [];
 
     document.addEventListener("keydown", (e) => {

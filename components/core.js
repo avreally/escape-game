@@ -7,10 +7,13 @@ AFRAME.registerComponent("core", {
     this.speed = 0;
     this.nitro = 0;
 
+    this.playerElement = document.querySelector("a-entity[player]");
+
     this.louderShown = false;
     this.yeahShown = false;
 
     this.speedElement = document.getElementById("speed");
+    this.shieldsElement = document.getElementById("shields");
     document
       .querySelector(".button-connect")
       .addEventListener("click", async () => {
@@ -85,6 +88,9 @@ AFRAME.registerComponent("core", {
   },
 
   tick: function (time) {
+    // console.log(this.playerElement.components.player.shields);
+    displayedShields = this.playerElement.components.player.shields;
+
     // const speed = time * 0.0000001 + 0.01 + this.nitro;
     const speed = time * 0.0000002 + 0.04 + this.nitro;
     this.el.emit("updateTimeState", {
@@ -96,6 +102,7 @@ AFRAME.registerComponent("core", {
     const displayedSpeed = Math.round(speed * 10000 - 100);
 
     this.speedElement.innerHTML = "speed: " + displayedSpeed;
+    this.shieldsElement.innerHTML = "shields left: " + displayedShields;
 
     const averageVolume = 1000;
     const maxVolume = 2000;

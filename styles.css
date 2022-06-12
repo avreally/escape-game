@@ -12,3 +12,10 @@ body {
   z-index: 1;
   position: relative;
 }
+
+#shields {
+  color: turquoise;
+  text-transform: uppercase;
+  z-index: 1;
+  position: relative;
+}
