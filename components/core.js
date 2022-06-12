@@ -86,7 +86,7 @@ AFRAME.registerComponent("core", {
 
   tick: function (time) {
     // const speed = time * 0.0000001 + 0.01 + this.nitro;
-    const speed = time * 0.0000001 + 0.1 + this.nitro;
+    const speed = time * 0.0000002 + 0.04 + this.nitro;
     this.el.emit("updateTimeState", {
       time,
       speed,

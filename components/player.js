@@ -14,16 +14,17 @@ AFRAME.registerComponent("player", {
   tick: function () {
     const player = this.el;
     const pos = this.el.object3D.position;
+    const minmax = 21;
 
     //  Checking pressed keys
     if (this.keys["ArrowLeft"]) {
-      if (pos.x > -18) {
+      if (pos.x > -minmax) {
         player.object3D.position.set(pos.x - 0.5, pos.y, pos.z);
       }
     }
 
     if (this.keys["ArrowRight"]) {
-      if (pos.x < 18) {
+      if (pos.x < minmax) {
         player.object3D.position.set(pos.x + 0.5, pos.y, pos.z);
       }
     }

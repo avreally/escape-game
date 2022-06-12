@@ -9,4 +9,6 @@ body {
 #speed {
   color: turquoise;
   text-transform: uppercase;
+  z-index: 1;
+  position: relative;
 }
