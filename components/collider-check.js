@@ -7,11 +7,14 @@ AFRAME.registerComponent("collider-check", {
         this.playerElement.components["aabb-collider"].objectEls[0]
           .classList[1];
       if (entityClass === "obstacle") {
-        this.playerElement.components.player.shields--;
         console.log("hit");
+        this.playerElement.components.player.shields--;
       }
 
-      if (entityClass === "bonus") console.log("bonus!");
+      if (entityClass === "bonus") {
+        console.log("bonus!");
+        this.playerElement.emit("addBonusNitro");
+      }
     });
   },
 });

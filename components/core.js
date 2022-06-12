@@ -6,8 +6,15 @@ AFRAME.registerComponent("core", {
     this.time = 0;
     this.speed = 0;
     this.nitro = 0;
+    this.bonusNitro = 0;
 
     this.playerElement = document.querySelector("a-entity[player]");
+
+    document
+      .querySelector("a-entity[collider-check]")
+      .addEventListener("addBonusNitro", () => {
+        this.bonusNitro += 0.01;
+      });
 
     this.louderShown = false;
     this.yeahShown = false;
@@ -88,10 +95,10 @@ AFRAME.registerComponent("core", {
   },
 
   tick: function (time) {
-    displayedShields = this.playerElement.components.player.shields;
+    const displayedShields = this.playerElement.components.player.shields;
 
     // const speed = time * 0.0000001 + 0.01 + this.nitro;
-    const speed = time * 0.0000002 + 0.04 + this.nitro;
+    const speed = time * 0.0000002 + 0.04 + this.nitro + this.bonusNitro;
     this.el.emit("updateTimeState", {
       time,
       speed,
