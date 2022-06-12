@@ -108,7 +108,12 @@ AFRAME.registerComponent("core", {
     const displayedSpeed = Math.round(speed * 10000 - 100);
 
     this.speedElement.innerHTML = "speed: " + displayedSpeed;
-    this.shieldsElement.innerHTML = "shields left: " + displayedShields;
+
+    if (displayedShields > 0) {
+      this.shieldsElement.innerHTML = "shields: " + displayedShields;
+    } else {
+      this.shieldsElement.innerHTML = "shields gone";
+    }
 
     const averageVolume = 1000;
     const maxVolume = 2000;
