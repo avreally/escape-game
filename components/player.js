@@ -29,6 +29,7 @@ AFRAME.registerComponent("player", {
         player.object3D.position.set(pos.x + 0.5, pos.y, pos.z);
       }
     }
+
     if (this.shields < 0) {
       this.el.remove();
     }

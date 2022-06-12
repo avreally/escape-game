@@ -19,7 +19,7 @@ AFRAME.registerComponent("obstacles", {
 
     // Generating obstacles and bonuses
     setInterval(() => {
-      // Decide between obstacle or bonus, 0 - 3 = obstacle, 4 - 6 = bonus, 7 - letter
+      // Decide between obstacle or bonus, 0 - 3 = obstacle, 4 - 5 = bonus, 6 - 7 - letter
       const randomType = Math.floor(Math.random() * 8);
 
       // Random x-coordinate
@@ -52,9 +52,9 @@ AFRAME.registerComponent("obstacles", {
         element = document.createElement("a-text");
         element.setAttribute("value", letters[letterIndex]);
         element.setAttribute("scale", "50 50 50");
-        element.setAttribute("color", "#fbff12");
+        element.setAttribute("color", "#f72585");
         element.setAttribute("class", "collidable letter");
-        element.object3D.position.set(x, 3, -150);
+        element.object3D.position.set(x, 5, -150);
         element.setAttribute(
           "animation",
           "property: rotation; dir: alternate; dur: 200; loop: true; easing: easeInOutCubic; from: 0 -20 0; to: 0 20 0"

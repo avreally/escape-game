@@ -7,6 +7,7 @@ AFRAME.registerComponent("core", {
     this.speed = 0;
     this.nitro = 0;
     this.bonusNitro = 0;
+    this.letterCounter = 0;
 
     this.playerElement = document.querySelector("a-entity[player]");
 
@@ -18,6 +19,7 @@ AFRAME.registerComponent("core", {
 
     this.louderShown = false;
     this.yeahShown = false;
+    this.winShown = false;
 
     this.speedElement = document.getElementById("speed");
     this.shieldsElement = document.getElementById("shields");
@@ -62,6 +64,7 @@ AFRAME.registerComponent("core", {
 
     this.louderTextEl = document.getElementById("louderText");
     this.yeahTextEl = document.getElementById("yeahText");
+    this.winTextEl = document.getElementById("winText");
 
     this.louderTextEl.setAttribute("animation__louder__fadein", {
       property: "text.opacity",
@@ -90,6 +93,21 @@ AFRAME.registerComponent("core", {
       from: 1,
       to: 0,
       startEvents: "showYeahText",
+      delay: 3000,
+    });
+
+    this.winTextEl.setAttribute("animation__win__fadein", {
+      property: "text.opacity",
+      from: 0,
+      to: 1,
+      startEvents: "showWinText",
+    });
+
+    this.winTextEl.setAttribute("animation__win__fadeout", {
+      property: "text.opacity",
+      from: 1,
+      to: 0,
+      startEvents: "showWinText",
       delay: 3000,
     });
   },
@@ -137,6 +155,14 @@ AFRAME.registerComponent("core", {
       console.log("yeah!");
       this.nitro = 0.05;
       this.yeahTextEl.emit("showYeahText", null, false);
+    }
+
+    const counter = this.letterCounter;
+
+    if (counter === 5 && !this.winShown) {
+      this.winShown = true;
+      console.log("win", counter);
+      this.winTextEl.emit("showWinText", null, false);
     }
   },
 });
