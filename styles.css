@@ -1,8 +1,15 @@
 body {
   overflow: hidden;
   margin: 0;
-  font-family: sans-serif;
-  font-weight: bold;
+  font-family: "Electrolize", sans-serif;
+}
+
+.statusBar {
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
+  align-items: center;
+  justify-content: center;
 }
 
 #speed {
@@ -10,11 +17,29 @@ body {
   text-transform: uppercase;
   z-index: 1;
   position: relative;
+  min-width: 175px;
+  font-size: 20px;
+  letter-spacing: 2px;
 }
 
 #shields {
-  color: turquoise;
+  color: magenta;
   text-transform: uppercase;
   z-index: 1;
   position: relative;
+  min-width: 175px;
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+
+.button-connect {
+  z-index: 1;
+  position: relative;
+  background-color: transparent;
+  color: turquoise;
+  border: 1px solid turquoise;
+  border-radius: 3px;
+  margin: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
 }
