@@ -33,6 +33,7 @@ AFRAME.registerComponent("obstacles", {
         element.setAttribute("height", 10);
         element.setAttribute("depth", 10);
         element.setAttribute("src", obstaclesImages[randomImgIndex]);
+        element.setAttribute("class", "collidable obstacle");
         element.object3D.position.set(x, 5, -150);
       }
 
@@ -40,10 +41,10 @@ AFRAME.registerComponent("obstacles", {
         element = document.createElement("a-octahedron");
         element.setAttribute("radius", 3);
         element.setAttribute("color", "#fbff12");
+        element.setAttribute("class", "collidable bonus");
         element.object3D.position.set(x, 3, -150);
       }
 
-      element.setAttribute("class", "collidable");
       element.setAttribute("data-aabb-collider-dynamic", true);
 
       this.elements.push({ element, initialTime: this.time });
