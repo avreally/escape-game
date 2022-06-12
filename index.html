@@ -56,26 +56,25 @@
           crossorigin="anonymous"
         ></audio>
         <a-asset-item id="duck" src="assets/models/duck.obj"></a-asset-item>
-        <a-asset-item id="duck-mtl" src="assets/models/duck.mtl"></a-asset-item>
         <a-asset-item
           id="duck-wire"
           src="assets/models/duck_wireframe.obj"
         ></a-asset-item>
-        <a-asset-item
-          id="duck-wire-mtl"
-          src="assets/models/duck_wireframe.mtl"
-        ></a-asset-item>
+        <img id="team-img" src="assets/images/team.png" />
+        <img id="trust-img" src="assets/images/trust.png" />
+        <img id="assessment-img" src="assets/images/assessment.png" />
+        <img id="project-img" src="assets/images/project.png" />
       </a-assets>
       <a-entity camera position="0 10 50"></a-entity>
       <a-sound src="#music"></a-sound>
       <a-entity moving-grid position="0 0 -60"></a-entity>
       <a-entity player collider-check position="0 0.5 30">
         <a-entity
-          raycaster="objects: .collidable; far: 4; showLine: true"
+          raycaster="objects: .collidable; far: 4"
           position="2 2 2"
         ></a-entity>
         <a-entity
-          raycaster="objects: .collidable; far: 4; showLine: true"
+          raycaster="objects: .collidable; far: 4"
           position="-2 2 2"
         ></a-entity>
         <a-entity
@@ -85,13 +84,12 @@
           <a-obj-model
             id="duck-inside"
             src="#duck"
-            mtl="#duck-mtl"
-            light="type: hemisphere; color: #e9ff70; groundColor: #3C3; intensity: 6"
+            material="shader: phong; color: #CC017E"
           ></a-obj-model>
           <a-obj-model
             id="duck-outside"
             src="#duck-wire"
-            mtl="#duck-wire-mtl"
+            material="shader: phong; color: #0000CC"
           ></a-obj-model>
         </a-entity>
       </a-entity>

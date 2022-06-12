@@ -4,19 +4,28 @@ AFRAME.registerComponent("obstacles", {
     this.speed = 0;
     this.elements = [];
 
+    const obstaclesImages = [
+      "#team-img",
+      "#trust-img",
+      "#assessment-img",
+      "#project-img",
+    ];
+
     // Defining min and max x-coordinates for obstacles
     const max = 17;
     const min = -17;
 
+    // Generating obstacles
     setInterval(() => {
       const x = Math.floor(Math.random() * (max - min) + min);
+      const randomImgIndex = Math.floor(Math.random() * obstaclesImages.length);
       const element = document.createElement("a-box");
-      element.object3D.position.set(x, 2.5, -150);
-      element.setAttribute("width", 5);
-      element.setAttribute("height", 5);
-      element.setAttribute("depth", 5);
-      element.setAttribute("color", "magenta");
+      element.object3D.position.set(x, 5, -150);
+      element.setAttribute("width", 10);
+      element.setAttribute("height", 10);
+      element.setAttribute("depth", 10);
       element.setAttribute("class", "collidable");
+      element.setAttribute("src", obstaclesImages[randomImgIndex]);
       this.elements.push({ element, initialTime: this.time });
       this.el.appendChild(element);
     }, 2000);
