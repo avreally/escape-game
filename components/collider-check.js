@@ -15,6 +15,15 @@ AFRAME.registerComponent("collider-check", {
         console.log("bonus!");
         this.playerElement.emit("addBonusNitro");
       }
+
+      if (entityClass === "letter") {
+        console.log(
+          "letter collected",
+          this.playerElement.components[
+            "aabb-collider"
+          ].objectEls[0].getAttribute("value")
+        );
+      }
     });
   },
 });

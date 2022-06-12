@@ -11,20 +11,22 @@ AFRAME.registerComponent("obstacles", {
       "#project-img",
     ];
 
+    const letters = ["H", "Y", "P", "E", "R"];
+
     // Defining min and max x-coordinates for obstacles and bonuses
     const max = 18;
     const min = -18;
 
     // Generating obstacles and bonuses
     setInterval(() => {
-      // Decide between obstacle or bonus, 0 = obstacle, 1 = bonus
-      const randomType = Math.floor(Math.random() * 2);
+      // Decide between obstacle or bonus, 0 - 3 = obstacle, 4 - 6 = bonus, 7 - letter
+      const randomType = Math.floor(Math.random() * 8);
 
       // Random x-coordinate
       const x = Math.floor(Math.random() * (max - min) + min);
 
       let element;
-      if (randomType === 0) {
+      if (randomType < 4) {
         const randomImgIndex = Math.floor(
           Math.random() * obstaclesImages.length
         );
@@ -37,7 +39,7 @@ AFRAME.registerComponent("obstacles", {
         element.object3D.position.set(x, 5, -150);
       }
 
-      if (randomType === 1) {
+      if (randomType > 3 && randomType < 6) {
         element = document.createElement("a-octahedron");
         element.setAttribute("radius", 3);
         element.setAttribute("color", "#fbff12");
@@ -45,11 +47,25 @@ AFRAME.registerComponent("obstacles", {
         element.object3D.position.set(x, 3, -150);
       }
 
+      if (randomType > 5) {
+        const letterIndex = Math.floor(Math.random() * letters.length);
+        element = document.createElement("a-text");
+        element.setAttribute("value", letters[letterIndex]);
+        element.setAttribute("scale", "50 50 50");
+        element.setAttribute("color", "#fbff12");
+        element.setAttribute("class", "collidable letter");
+        element.object3D.position.set(x, 3, -150);
+        element.setAttribute(
+          "animation",
+          "property: rotation; dir: alternate; dur: 200; loop: true; easing: easeInOutCubic; from: 0 -20 0; to: 0 20 0"
+        );
+      }
+
       element.setAttribute("data-aabb-collider-dynamic", true);
 
       this.elements.push({ element, initialTime: this.time });
       this.el.appendChild(element);
-    }, 3000);
+    }, 2000);
 
     document
       .querySelector("a-entity[core]")
