@@ -1,14 +1,10 @@
 AFRAME.registerComponent("collider-check", {
-  dependencies: ["raycaster"],
-
   init: function () {
-    this.el.addEventListener("raycaster-intersection", (event) => {
-      if (event.detail.intersections[0].distance < 5) {
-        console.log(
-          "Player hit something! Distance",
-          event.detail.intersections[0]
-        );
-      }
+    this.playerElement = document.querySelector("a-entity[player]");
+
+    this.playerElement.addEventListener("hitstart", () => {
+      console.log("hit");
+      this.playerElement.components.player.shields--;
     });
   },
 });

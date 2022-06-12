@@ -15,7 +15,7 @@ AFRAME.registerComponent("obstacles", {
     const max = 18;
     const min = -18;
 
-    // Generating obstacles
+    // Generating obstacles and bonuses
     setInterval(() => {
       // Decide between obstacle or bonus, 0 = obstacle, 1 = bonus
       const randomType = Math.floor(Math.random() * 2);
@@ -32,7 +32,6 @@ AFRAME.registerComponent("obstacles", {
         element.setAttribute("width", 10);
         element.setAttribute("height", 10);
         element.setAttribute("depth", 10);
-        element.setAttribute("class", "collidable");
         element.setAttribute("src", obstaclesImages[randomImgIndex]);
         element.object3D.position.set(x, 5, -150);
       }
@@ -40,10 +39,12 @@ AFRAME.registerComponent("obstacles", {
       if (randomType === 1) {
         element = document.createElement("a-octahedron");
         element.setAttribute("radius", 3);
-        element.setAttribute("class", "collidable");
         element.setAttribute("color", "#fbff12");
         element.object3D.position.set(x, 3, -150);
       }
+
+      element.setAttribute("class", "collidable");
+      element.setAttribute("data-aabb-collider-dynamic", true);
 
       this.elements.push({ element, initialTime: this.time });
       this.el.appendChild(element);

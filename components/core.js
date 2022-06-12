@@ -88,7 +88,6 @@ AFRAME.registerComponent("core", {
   },
 
   tick: function (time) {
-    // console.log(this.playerElement.components.player.shields);
     displayedShields = this.playerElement.components.player.shields;
 
     // const speed = time * 0.0000001 + 0.01 + this.nitro;
