@@ -31,13 +31,13 @@ AFRAME.registerComponent("collider-check", {
           this.playerElement.components[
             "aabb-collider"
           ].objectEls[0].getAttribute("value");
-        console.log("letter collected", collectedLetter);
+        // console.log("letter collected", collectedLetter);
         if (!collectedHyper[collectedLetter]) {
           collectedHyper[collectedLetter] = true;
           this.coreElement.components.core.letterCounter++;
-          console.log(this.coreElement.components.core.letterCounter);
+          // console.log(this.coreElement.components.core.letterCounter);
         }
-        console.log(collectedHyper);
+        // console.log(collectedHyper);
       }
     });
   },

@@ -4,6 +4,8 @@ AFRAME.registerComponent("obstacles", {
     this.speed = 0;
     this.elements = [];
 
+    this.playerElement = document.querySelector("a-entity[player]");
+
     const obstaclesImages = [
       "#team-img",
       "#trust-img",
@@ -66,6 +68,19 @@ AFRAME.registerComponent("obstacles", {
       this.elements.push({ element, initialTime: this.time });
       this.el.appendChild(element);
     }, 2000);
+
+    // Removing obstacles after collision with player
+    this.playerElement.addEventListener("hitstart", () => {
+      console.log(this.elements);
+      const collidedElement =
+        this.playerElement.components["aabb-collider"].objectEls[0];
+
+      const index = this.elements.findIndex(({ element }) => {
+        return collidedElement === element;
+      });
+      this.elements.splice(index, 1);
+      collidedElement.remove();
+    });
 
     document
       .querySelector("a-entity[core]")
