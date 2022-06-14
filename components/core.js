@@ -8,6 +8,7 @@ AFRAME.registerComponent("core", {
     this.nitro = 0;
     this.bonusNitro = 0;
     this.letterCounter = 0;
+    // this.playerWon = false;
 
     this.playerElement = document.querySelector("a-entity[player]");
 
@@ -103,13 +104,13 @@ AFRAME.registerComponent("core", {
       startEvents: "showWinText",
     });
 
-    this.winTextEl.setAttribute("animation__win__fadeout", {
-      property: "text.opacity",
-      from: 1,
-      to: 0,
-      startEvents: "showWinText",
-      delay: 3000,
-    });
+    // this.winTextEl.setAttribute("animation__win__fadeout", {
+    //   property: "text.opacity",
+    //   from: 1,
+    //   to: 0,
+    //   startEvents: "showWinText",
+    //   delay: 3000,
+    // });
   },
 
   tick: function (time) {
@@ -159,10 +160,20 @@ AFRAME.registerComponent("core", {
 
     const counter = this.letterCounter;
 
-    if (counter === 5 && !this.winShown) {
+    if (counter === 1 && !this.winShown) {
       this.winShown = true;
+
+      this.el.emit("playerWon");
+
       console.log("win", counter);
       this.winTextEl.emit("showWinText", null, false);
+    }
+
+    if (this.winShown === true) {
+      this.playerElement.object3D.position.setZ(
+        this.playerElement.object3D.position.z - 0.5
+      );
+      console.log("pos Z", this.playerElement.object3D.position.z);
     }
   },
 });
