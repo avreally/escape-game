@@ -2,6 +2,7 @@ AFRAME.registerComponent("collider-check", {
   init: function () {
     this.playerElement = document.querySelector("a-entity[player]");
     this.coreElement = document.querySelector("a-entity[core]");
+    this.hyperElement = document.querySelector("#hyper");
 
     const collectedHyper = {
       H: false,
@@ -35,6 +36,7 @@ AFRAME.registerComponent("collider-check", {
         if (!collectedHyper[collectedLetter]) {
           collectedHyper[collectedLetter] = true;
           this.coreElement.components.core.letterCounter++;
+          this.hyperElement.innerText += ` ${collectedLetter}`;
           // console.log(this.coreElement.components.core.letterCounter);
         }
         // console.log(collectedHyper);
