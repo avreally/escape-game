@@ -10,6 +10,16 @@ AFRAME.registerComponent("player", {
     document.addEventListener("keyup", (e) => {
       this.keys[e.key] = false;
     });
+
+    this.loseShown = false;
+    this.loseTextEl = document.getElementById("loseText");
+
+    this.loseTextEl.setAttribute("animation__lose__fadein", {
+      property: "text.opacity",
+      from: 0,
+      to: 1,
+      startEvents: "showLoseText",
+    });
   },
 
   tick: function () {
@@ -30,8 +40,9 @@ AFRAME.registerComponent("player", {
       }
     }
 
-    if (this.shields < 0) {
+    if (this.shields < 0 && !this.loseShown) {
       this.el.remove();
+      this.loseTextEl.emit("showLoseText", null, false);
     }
   },
 });
