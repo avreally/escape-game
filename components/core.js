@@ -15,7 +15,9 @@ AFRAME.registerComponent("core", {
     document
       .querySelector("a-entity[collider-check]")
       .addEventListener("addBonusNitro", () => {
-        this.bonusNitro += 0.01;
+        this.bonusNitro += 0.008;
+        // faster
+        // this.bonusNitro += 0.01;
       });
 
     this.louderShown = false;
@@ -116,8 +118,11 @@ AFRAME.registerComponent("core", {
   tick: function (time) {
     const displayedShields = this.playerElement.components.player.shields;
 
-    // const speed = time * 0.0000001 + 0.01 + this.nitro;
-    const speed = time * 0.0000002 + 0.04 + this.nitro + this.bonusNitro;
+    // const speed = time * 0.0000001 + 0.01 + this.nitro + this.bonusNitro;
+    const speed = time * 0.0000001 + 0.03 + this.nitro + this.bonusNitro;
+
+    // faster from the start
+    // const speed = time * 0.0000002 + 0.04 + this.nitro + this.bonusNitro;
     this.el.emit("updateTimeState", {
       time,
       speed,
@@ -160,7 +165,7 @@ AFRAME.registerComponent("core", {
 
     const counter = this.letterCounter;
 
-    if (counter === 1 && !this.winShown) {
+    if (counter === 5 && !this.winShown) {
       this.winShown = true;
 
       this.el.emit("playerWon");
