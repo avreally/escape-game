@@ -8,7 +8,6 @@ AFRAME.registerComponent("core", {
     this.nitro = 0;
     this.bonusNitro = 0;
     this.letterCounter = 0;
-    // this.playerWon = false;
 
     this.playerElement = document.querySelector("a-entity[player]");
 
@@ -105,24 +104,20 @@ AFRAME.registerComponent("core", {
       to: 1,
       startEvents: "showWinText",
     });
-
-    // this.winTextEl.setAttribute("animation__win__fadeout", {
-    //   property: "text.opacity",
-    //   from: 1,
-    //   to: 0,
-    //   startEvents: "showWinText",
-    //   delay: 3000,
-    // });
   },
 
   tick: function (time) {
     const displayedShields = this.playerElement.components.player.shields;
 
+    // original speed
     // const speed = time * 0.0000001 + 0.01 + this.nitro + this.bonusNitro;
-    const speed = time * 0.0000001 + 0.03 + this.nitro + this.bonusNitro;
 
     // faster from the start
     // const speed = time * 0.0000002 + 0.04 + this.nitro + this.bonusNitro;
+
+    // average speed
+    const speed = time * 0.0000001 + 0.03 + this.nitro + this.bonusNitro;
+
     this.el.emit("updateTimeState", {
       time,
       speed,
