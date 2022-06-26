@@ -18,12 +18,12 @@ AFRAME.registerComponent("collider-check", {
           .classList[1];
 
       if (entityClass === "obstacle") {
-        console.log("hit");
+        // console.log("hit");
         this.playerElement.components.player.shields--;
       }
 
       if (entityClass === "bonus") {
-        console.log("bonus!");
+        // console.log("bonus!");
         this.playerElement.emit("addBonusNitro");
       }
 

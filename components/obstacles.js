@@ -76,7 +76,7 @@ AFRAME.registerComponent("obstacles", {
 
     // Removing obstacles after collision with player
     this.playerElement.addEventListener("hitstart", () => {
-      console.log(this.elements);
+      // console.log(this.elements);
       const collidedElement =
         this.playerElement.components["aabb-collider"].objectEls[0];
 
@@ -99,9 +99,9 @@ AFRAME.registerComponent("obstacles", {
       .querySelector("a-entity[core]")
       .addEventListener("playerWon", () => {
         this.hasPlayerWon = true;
-        console.log("player won, removing obstacles");
+        // console.log("player won, removing obstacles");
         clearInterval(intervalID);
-        console.log("elements", this.elements);
+        // console.log("elements", this.elements);
         this.elements.forEach((element) => {
           element.element.remove();
         });

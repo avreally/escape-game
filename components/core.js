@@ -25,44 +25,42 @@ AFRAME.registerComponent("core", {
 
     this.speedElement = document.getElementById("speed");
     this.shieldsElement = document.getElementById("shields");
-    document
-      .querySelector(".button-connect")
-      .addEventListener("click", async () => {
-        const usbVendorId = 0x239a;
-        navigator.serial
-          .requestPort({ filters: [{ usbVendorId }] })
-          .then(async (port) => {
-            await port.open({ baudRate: 9600 });
-            console.log(port, port.readable);
 
-            while (port.readable) {
-              const reader = port.readable.getReader();
-              try {
-                while (true) {
-                  const { value, done } = await reader.read();
-                  if (done) {
-                    console.error("Reader has been canceled");
-                    break;
-                  }
-                  if (value.length === 5) {
-                    const view = new DataView(value.buffer, 0);
-                    const magnitude = view.getFloat32(0, true);
+    (async () => {
+      let volumeCallback = null;
+      let volumeInterval = null;
 
-                    console.log(magnitude);
-                    this.magnitude = magnitude;
-                  }
-                }
-              } catch (error) {
-                console.error(error);
-              } finally {
-                reader.releaseLock();
-              }
-            }
-          })
-          .catch((err) => {
-            console.error("Port is not selected", err);
-          });
-      });
+      try {
+        const audioStream = await navigator.mediaDevices.getUserMedia({
+          audio: {
+            echoCancellation: true,
+          },
+        });
+        const audioContext = new AudioContext();
+        const audioSource = audioContext.createMediaStreamSource(audioStream);
+        const analyser = audioContext.createAnalyser();
+        analyser.fftSize = 512;
+        analyser.minDecibels = -127;
+        analyser.maxDecibels = 0;
+        analyser.smoothingTimeConstant = 0.4;
+        audioSource.connect(analyser);
+        const volumes = new Uint8Array(analyser.frequencyBinCount);
+        volumeCallback = () => {
+          analyser.getByteFrequencyData(volumes);
+          let volumeSum = 0;
+          for (const volume of volumes) {
+            volumeSum += volume;
+          }
+          const averageMicVolume = volumeSum / volumes.length;
+          this.magnitude = averageMicVolume;
+        };
+      } catch (error) {
+        console.log(error);
+      }
+      if (volumeCallback !== null && volumeInterval === null) {
+        volumeInterval = setInterval(volumeCallback, 100);
+      }
+    })();
 
     this.louderTextEl = document.getElementById("louderText");
     this.yeahTextEl = document.getElementById("yeahText");
@@ -134,8 +132,8 @@ AFRAME.registerComponent("core", {
       this.shieldsElement.innerHTML = "shields gone";
     }
 
-    const averageVolume = 1000;
-    const maxVolume = 2000;
+    const averageVolume = 70;
+    const maxVolume = 100;
 
     if (this.magnitude > averageVolume) {
       this.averageVolumeReached = true;
