@@ -10,6 +10,7 @@ body {
   gap: 100px;
   align-items: center;
   justify-content: center;
+  padding-top: 32px;
 }
 
 .statusBarText {
@@ -32,16 +33,4 @@ body {
 #hyper {
   color: turquoise;
   min-width: 230px;
-}
-
-.button-connect {
-  z-index: 1;
-  position: relative;
-  background-color: transparent;
-  color: turquoise;
-  border: 1px solid turquoise;
-  border-radius: 3px;
-  margin: 4px;
-  padding: 4px 8px;
-  cursor: pointer;
 }

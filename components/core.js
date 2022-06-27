@@ -52,6 +52,7 @@ AFRAME.registerComponent("core", {
             volumeSum += volume;
           }
           const averageMicVolume = volumeSum / volumes.length;
+          // console.log(averageMicVolume);
           this.magnitude = averageMicVolume;
         };
       } catch (error) {
