@@ -13,7 +13,14 @@ AFRAME.registerComponent("obstacles", {
       "#project-img",
     ];
 
-    const letters = ["H", "Y", "P", "E", "R"];
+    const lettersClass = ["H", "Y", "P", "E", "R"];
+    const lettersImages = [
+      "#letter-h",
+      "#letter-y",
+      "#letter-p",
+      "#letter-e",
+      "#letter-r",
+    ];
 
     // Defining min and max x-coordinates for obstacles and bonuses
     const max = 18;
@@ -54,17 +61,17 @@ AFRAME.registerComponent("obstacles", {
         }
 
         if (randomType > 5) {
-          const letterIndex = Math.floor(Math.random() * letters.length);
-          element = document.createElement("a-text");
-          element.setAttribute("value", letters[letterIndex]);
-          element.setAttribute("scale", "50 50 50");
-          element.setAttribute("color", "#f72585");
-          element.setAttribute("class", "collidable letter");
-          element.object3D.position.set(x, 5, -150);
+          const letterIndex = Math.floor(Math.random() * lettersImages.length);
+          element = document.createElement("a-sphere");
+          element.setAttribute("src", lettersImages[letterIndex]);
+          element.setAttribute("radius", 5);
+          element.setAttribute("segments-height", 53);
+
           element.setAttribute(
-            "animation",
-            "property: rotation; dir: alternate; dur: 200; loop: true; easing: easeInOutCubic; from: 0 -20 0; to: 0 20 0"
+            "class",
+            `collidable letter ${lettersClass[letterIndex]}`
           );
+          element.object3D.position.set(x, 5, -150);
         }
 
         element.setAttribute("data-aabb-collider-dynamic", true);

@@ -29,9 +29,8 @@ AFRAME.registerComponent("collider-check", {
 
       if (entityClass === "letter") {
         const collectedLetter =
-          this.playerElement.components[
-            "aabb-collider"
-          ].objectEls[0].getAttribute("value");
+          this.playerElement.components["aabb-collider"].objectEls[0]
+            .classList[2];
         // console.log("letter collected", collectedLetter);
         if (!collectedHyper[collectedLetter]) {
           collectedHyper[collectedLetter] = true;
