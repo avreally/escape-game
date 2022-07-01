@@ -20,6 +20,13 @@ body {
   min-width: 175px;
   font-size: 20px;
   letter-spacing: 2px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.collectedLetter {
+  color: #364d4a;
 }
 
 #speed {

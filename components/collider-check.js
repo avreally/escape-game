@@ -2,14 +2,14 @@ AFRAME.registerComponent("collider-check", {
   init: function () {
     this.playerElement = document.querySelector("a-entity[player]");
     this.coreElement = document.querySelector("a-entity[core]");
-    this.hyperElement = document.querySelector("#hyper");
+    // this.hyperElement = document.querySelector("#hyper");
 
     const collectedHyper = {
-      H: false,
-      Y: false,
-      P: false,
-      E: false,
-      R: false,
+      h: false,
+      y: false,
+      p: false,
+      e: false,
+      r: false,
     };
 
     this.playerElement.addEventListener("hitstart", () => {
@@ -35,10 +35,9 @@ AFRAME.registerComponent("collider-check", {
         if (!collectedHyper[collectedLetter]) {
           collectedHyper[collectedLetter] = true;
           this.coreElement.components.core.letterCounter++;
-          this.hyperElement.innerText += ` ${collectedLetter}`;
-          // console.log(this.coreElement.components.core.letterCounter);
+          this.letter = document.querySelector(`#${collectedLetter}`);
+          this.letter.style.color = "turquoise";
         }
-        // console.log(collectedHyper);
       }
     });
   },

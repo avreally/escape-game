@@ -13,7 +13,7 @@ AFRAME.registerComponent("obstacles", {
       "#project-img",
     ];
 
-    const lettersClass = ["H", "Y", "P", "E", "R"];
+    const lettersClass = ["h", "y", "p", "e", "r"];
     const lettersImages = [
       "#letter-h",
       "#letter-y",
