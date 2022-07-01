@@ -5,6 +5,8 @@ body {
 }
 
 .statusBar {
+  z-index: 1;
+  position: relative;
   display: flex;
   flex-direction: row;
   gap: 100px;
@@ -15,8 +17,6 @@ body {
 
 .statusBarText {
   text-transform: uppercase;
-  z-index: 1;
-  position: relative;
   min-width: 175px;
   font-size: 20px;
   letter-spacing: 2px;
@@ -40,4 +40,23 @@ body {
 #hyper {
   color: turquoise;
   min-width: 230px;
+}
+
+.soundLevel {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.soundIndicator {
+  border-radius: 50%;
+  background-color: #491c49;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #921a92;
+}
+
+.soundIndicator.lightedUp {
+  background-color: #ff23ff;
+  box-shadow: 0 0 10pt 2pt #ff5ef6;
 }

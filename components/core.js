@@ -26,6 +26,24 @@ AFRAME.registerComponent("core", {
     this.speedElement = document.getElementById("speed");
     this.shieldsElement = document.getElementById("shields");
 
+    const lightUpIndicator = (micVolume) => {
+      const allIndicators = [...document.querySelectorAll(".soundIndicator")];
+      const numberOfIndicatorsToLight = Math.round(micVolume / 15);
+      console.log(numberOfIndicatorsToLight);
+      const indicatorsToLight = allIndicators.slice(
+        0,
+        numberOfIndicatorsToLight
+      );
+
+      for (const indicator of allIndicators) {
+        indicator.classList.remove("lightedUp");
+      }
+
+      for (const indicator of indicatorsToLight) {
+        indicator.classList.add("lightedUp");
+      }
+    };
+
     (async () => {
       let volumeCallback = null;
       let volumeInterval = null;
@@ -52,8 +70,10 @@ AFRAME.registerComponent("core", {
             volumeSum += volume;
           }
           const averageMicVolume = volumeSum / volumes.length;
+          // max measured averageMicVolume so far is 160
           // console.log(averageMicVolume);
           this.magnitude = averageMicVolume;
+          lightUpIndicator(averageMicVolume);
         };
       } catch (error) {
         console.log(error);
@@ -133,8 +153,8 @@ AFRAME.registerComponent("core", {
       this.shieldsElement.innerHTML = "shields gone";
     }
 
-    const averageVolume = 70;
-    const maxVolume = 100;
+    const averageVolume = 110;
+    const maxVolume = 140;
 
     if (this.magnitude > averageVolume) {
       this.averageVolumeReached = true;
@@ -145,14 +165,14 @@ AFRAME.registerComponent("core", {
     }
 
     if (this.averageVolumeReached && !this.louderShown) {
-      console.log("louder");
+      // console.log("louder");
       this.louderShown = true;
       this.louderTextEl.emit("showLouderText", null, false);
     }
 
     if (this.maxVolumeReached && !this.yeahShown) {
       this.yeahShown = true;
-      console.log("yeah!");
+      // console.log("yeah!");
       this.nitro = 0.05;
       this.yeahTextEl.emit("showYeahText", null, false);
     }
@@ -164,7 +184,7 @@ AFRAME.registerComponent("core", {
 
       this.el.emit("playerWon");
 
-      console.log("win", counter);
+      // console.log("win", counter);
       this.winTextEl.emit("showWinText", null, false);
     }
 
@@ -172,7 +192,7 @@ AFRAME.registerComponent("core", {
       this.playerElement.object3D.position.setZ(
         this.playerElement.object3D.position.z - 0.5
       );
-      console.log("pos Z", this.playerElement.object3D.position.z);
+      // console.log("pos Z", this.playerElement.object3D.position.z);
     }
   },
 });
