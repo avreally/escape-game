@@ -1,8 +1,6 @@
 AFRAME.registerComponent("core", {
   init: function () {
     this.magnitude = 0;
-    this.averageVolumeReached = false;
-    this.maxVolumeReached = false;
     this.time = 0;
     this.speed = 0;
     this.nitro = 0;
@@ -29,7 +27,6 @@ AFRAME.registerComponent("core", {
     const lightUpIndicator = (micVolume) => {
       const allIndicators = [...document.querySelectorAll(".soundIndicator")];
       const numberOfIndicatorsToLight = Math.round(micVolume / 15);
-      console.log(numberOfIndicatorsToLight);
       const indicatorsToLight = allIndicators.slice(
         0,
         numberOfIndicatorsToLight
@@ -99,7 +96,7 @@ AFRAME.registerComponent("core", {
       from: 1,
       to: 0,
       startEvents: "showLouderText",
-      delay: 3000,
+      delay: 1000,
     });
 
     this.yeahTextEl.setAttribute("animation__yeah__fadein", {
@@ -153,26 +150,20 @@ AFRAME.registerComponent("core", {
       this.shieldsElement.innerHTML = "shields gone";
     }
 
-    const averageVolume = 110;
-    const maxVolume = 140;
+    const averageVolume = 100;
+    const maxVolume = 130;
 
-    if (this.magnitude > averageVolume) {
-      this.averageVolumeReached = true;
-    }
-
-    if (this.magnitude > maxVolume) {
-      this.maxVolumeReached = true;
-    }
-
-    if (this.averageVolumeReached && !this.louderShown) {
-      // console.log("louder");
+    if (this.magnitude > averageVolume && !this.louderShown) {
       this.louderShown = true;
-      this.louderTextEl.emit("showLouderText", null, false);
+      setTimeout(() => {
+        if (!this.yeahShown) {
+          this.louderTextEl.emit("showLouderText", null, false);
+        }
+      }, 500);
     }
 
-    if (this.maxVolumeReached && !this.yeahShown) {
+    if (this.magnitude > maxVolume && !this.yeahShown) {
       this.yeahShown = true;
-      // console.log("yeah!");
       this.nitro = 0.05;
       this.yeahTextEl.emit("showYeahText", null, false);
     }
@@ -184,7 +175,6 @@ AFRAME.registerComponent("core", {
 
       this.el.emit("playerWon");
 
-      // console.log("win", counter);
       this.winTextEl.emit("showWinText", null, false);
     }
 
