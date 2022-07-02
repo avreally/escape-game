@@ -172,17 +172,23 @@ AFRAME.registerComponent("core", {
 
     if (counter === 5 && !this.winShown) {
       this.winShown = true;
-
       this.el.emit("playerWon");
-
       this.winTextEl.emit("showWinText", null, false);
     }
 
+    // Sending the player to the horizon in win case, player can't accelerate after that
     if (this.winShown === true) {
+      this.louderShown = true;
+      this.yeahShown = true;
       this.playerElement.object3D.position.setZ(
         this.playerElement.object3D.position.z - 0.5
       );
-      // console.log("pos Z", this.playerElement.object3D.position.z);
+    }
+
+    // The player can't accelerate after death
+    if (this.playerElement.components.player.shields < 0) {
+      this.louderShown = true;
+      this.yeahShown = true;
     }
   },
 });
