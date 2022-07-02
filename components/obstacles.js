@@ -7,19 +7,19 @@ AFRAME.registerComponent("obstacles", {
     this.playerElement = document.querySelector("a-entity[player]");
 
     const obstaclesImages = [
-      "#team-img",
-      "#trust-img",
-      "#assessment-img",
-      "#project-img",
+      "#teamImg",
+      "#trustImg",
+      "#assessmentImg",
+      "#projectImg",
     ];
 
     const lettersClass = ["h", "y", "p", "e", "r"];
     const lettersImages = [
-      "#letter-h",
-      "#letter-y",
-      "#letter-p",
-      "#letter-e",
-      "#letter-r",
+      "#letterH",
+      "#letterY",
+      "#letterP",
+      "#letterE",
+      "#letterR",
     ];
 
     // Defining min and max x-coordinates for obstacles and bonuses
