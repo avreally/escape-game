@@ -76,7 +76,7 @@ AFRAME.registerComponent("obstacles", {
 
         element.setAttribute("data-aabb-collider-dynamic", true);
 
-        this.elements.push({ element, initialTime: this.time });
+        this.elements.push({ element });
         this.el.appendChild(element);
       }, 2000);
     }
@@ -116,10 +116,10 @@ AFRAME.registerComponent("obstacles", {
       });
   },
 
-  tick() {
-    this.elements.forEach(({ element, initialTime }, index) => {
+  tick(time, timeDelta) {
+    this.elements.forEach(({ element }, index) => {
       const position = element.object3D.position;
-      position.setZ((this.time - initialTime) * this.speed - 150);
+      position.setZ(position.z + timeDelta * this.speed);
       if (position.z > 50) {
         this.elements.splice(index, 1);
         this.el.removeChild(element);

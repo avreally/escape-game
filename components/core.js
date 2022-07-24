@@ -4,17 +4,23 @@ AFRAME.registerComponent("core", {
     this.time = 0;
     this.speed = 0;
     this.nitro = 0;
-    this.bonusNitro = 0;
     this.letterCounter = 0;
+
+    this.nitros = {
+      screamNitro: 0,
+      bonusNitro: 0,
+    };
 
     this.playerElement = document.querySelector("a-entity[player]");
 
     document
       .querySelector("a-entity[collider-check]")
       .addEventListener("addBonusNitro", () => {
-        this.bonusNitro += 0.008;
-        // faster
-        // this.bonusNitro += 0.01;
+        AFRAME.ANIME({
+          targets: this.nitros,
+          bonusNitro: this.nitros.bonusNitro + 0.01,
+          easing: "cubicBezier(0.180, 0.070, 0.000, 1.000)",
+        });
       });
 
     this.louderShown = false;
@@ -122,22 +128,23 @@ AFRAME.registerComponent("core", {
     });
   },
 
-  tick: function (time) {
+  tick: function (time, timeDelta) {
     const displayedShields = this.playerElement.components.player.shields;
 
     // original speed
     // const speed = time * 0.0000001 + 0.01 + this.nitro + this.bonusNitro;
 
     // faster from the start
-    // const speed = time * 0.0000002 + 0.04 + this.nitro + this.bonusNitro;
+    const speed = 0.04 + time * 0.0000002 + this.nitros.bonusNitro;
+
+    console.log("speed", speed);
 
     // average speed
-    const speed = time * 0.0000001 + 0.03 + this.nitro + this.bonusNitro;
+    // const speed = time * 0.0000001 + 0.03 + this.nitro + this.bonusNitro;
 
     this.el.emit("updateTimeState", {
-      time,
+      timeDelta,
       speed,
-      nitro: this.nitro,
     });
 
     const displayedSpeed = Math.round(speed * 10000 - 100);

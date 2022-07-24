@@ -19,20 +19,16 @@ AFRAME.registerComponent("moving-grid", {
     );
     this.grid.material = new THREE.ShaderMaterial({
       uniforms: {
-        time: {
+        offset: {
           value: 0,
         },
         limits: {
           value: new THREE.Vector2(-limit, limit),
         },
-        speed: {
-          value: 0.01,
-        },
       },
       vertexShader: `
-      uniform float time;
+      uniform float offset;
       uniform vec2 limits;
-      uniform float speed;
 
       attribute float moveable;
 
@@ -43,11 +39,10 @@ AFRAME.registerComponent("moving-grid", {
         float limLen = limits.y - limits.x;
         vec3 pos = position;
         if (floor(moveable + 0.5) > 0.5){ // if a point has "moveable" attribute = 1
-          float dist = speed * time;
-          float currPos = mod((pos.z + dist) - limits.x, limLen) + limits.x;
+          float currPos = mod((pos.z + offset) - limits.x, limLen) + limits.x;
           pos.z = currPos;
         }
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(pos,1.0);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
       }
     `,
       fragmentShader: `
@@ -65,9 +60,8 @@ AFRAME.registerComponent("moving-grid", {
     document
       .querySelector("a-entity[core]")
       .addEventListener("updateTimeState", (event) => {
-        const { time, speed } = event.detail;
-        this.grid.material.uniforms.time.value = time;
-        this.grid.material.uniforms.speed.value = speed;
+        const { timeDelta, speed } = event.detail;
+        this.grid.material.uniforms.offset.value += timeDelta * speed;
       });
   },
 });
