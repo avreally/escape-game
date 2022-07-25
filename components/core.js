@@ -72,7 +72,6 @@ AFRAME.registerComponent("core", {
           }
           const averageMicVolume = volumeSum / volumes.length;
           // max measured averageMicVolume so far is 160
-          // console.log(averageMicVolume);
           this.magnitude = averageMicVolume;
           lightUpIndicator(averageMicVolume);
         };
@@ -129,27 +128,11 @@ AFRAME.registerComponent("core", {
   tick: function (time, timeDelta) {
     const displayedShields = this.playerElement.components.player.shields;
 
-    // original speed
-    // const speed =
-    //   0.01 +
-    //   time * 0.0000001 +
-    //   this.nitros.screamNitro +
-    //   this.nitros.bonusNitro;
-
-    // faster from the start
     const speed =
       0.04 +
       time * 0.0000002 +
       this.nitros.screamNitro +
       this.nitros.bonusNitro;
-
-    // console.log("speed", Math.round(speed * 40));
-    // average speed
-    // const speed =
-    //   0.03 +
-    //   time * 0.0000002 +
-    //   this.nitros.screamNitro +
-    //   this.nitros.bonusNitro;
 
     this.el.emit("updateTimeState", {
       timeDelta,
@@ -166,27 +149,30 @@ AFRAME.registerComponent("core", {
       this.shieldsElement.innerHTML = "shields gone";
     }
 
-    const averageVolume = 100;
-    const maxVolume = 130;
+    const averageVolume = 110;
+    const maxVolume = 140;
 
-    if (this.magnitude > averageVolume && !this.louderShown) {
-      this.louderShown = true;
-      setTimeout(() => {
-        if (!this.yeahShown) {
-          this.louderTextEl.emit("showLouderText", null, false);
-        }
-      }, 500);
-    }
+    // showing louderText and yeahText, and increasing speed only after the screamText is shown
+    setTimeout(() => {
+      if (this.magnitude > averageVolume && !this.louderShown) {
+        this.louderShown = true;
+        setTimeout(() => {
+          if (!this.yeahShown) {
+            this.louderTextEl.emit("showLouderText", null, false);
+          }
+        }, 500);
+      }
 
-    if (this.magnitude > maxVolume && !this.yeahShown) {
-      this.yeahShown = true;
-      AFRAME.ANIME({
-        targets: this.nitros,
-        bonusNitro: this.nitros.screamNitro + 0.05,
-        easing: "cubicBezier(0.180, 0.070, 0.000, 2.000)",
-      });
-      this.yeahTextEl.emit("showYeahText", null, false);
-    }
+      if (this.magnitude > maxVolume && !this.yeahShown) {
+        this.yeahShown = true;
+        AFRAME.ANIME({
+          targets: this.nitros,
+          bonusNitro: this.nitros.screamNitro + 0.05,
+          easing: "cubicBezier(0.180, 0.070, 0.000, 2.000)",
+        });
+        this.yeahTextEl.emit("showYeahText", null, false);
+      }
+    }, 21000);
 
     const counter = this.letterCounter;
 
