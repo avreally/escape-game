@@ -143,6 +143,7 @@ AFRAME.registerComponent("core", {
       this.nitros.screamNitro +
       this.nitros.bonusNitro;
 
+    // console.log("speed", Math.round(speed * 40));
     // average speed
     // const speed =
     //   0.03 +

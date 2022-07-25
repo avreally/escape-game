@@ -20,9 +20,16 @@ AFRAME.registerComponent("player", {
       to: 1,
       startEvents: "showLoseText",
     });
+
+    document
+      .querySelector("a-entity[core]")
+      .addEventListener("updateTimeState", (event) => {
+        const { speed } = event.detail;
+        this.speed = speed;
+      });
   },
 
-  tick: function () {
+  tick: function (time, timeDelta) {
     const player = this.el;
     const pos = this.el.object3D.position;
     const minmax = 21;
@@ -30,13 +37,13 @@ AFRAME.registerComponent("player", {
     //  Checking pressed keys
     if (this.keys["ArrowLeft"]) {
       if (pos.x > -minmax) {
-        player.object3D.position.set(pos.x - 0.5, pos.y, pos.z);
+        player.object3D.position.x -= 0.5;
       }
     }
 
     if (this.keys["ArrowRight"]) {
       if (pos.x < minmax) {
-        player.object3D.position.set(pos.x + 0.5, pos.y, pos.z);
+        player.object3D.position.x += 0.5;
       }
     }
 
@@ -44,5 +51,8 @@ AFRAME.registerComponent("player", {
       this.el.remove();
       this.loseTextEl.emit("showLoseText", null, false);
     }
+
+    // increasing player rotation speed
+    player.object3D.rotation.y += (timeDelta * this.speed) / 7;
   },
 });
