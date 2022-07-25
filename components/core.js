@@ -1,9 +1,7 @@
 AFRAME.registerComponent("core", {
   init: function () {
     this.magnitude = 0;
-    this.time = 0;
     this.speed = 0;
-    this.nitro = 0;
     this.letterCounter = 0;
 
     this.nitros = {
@@ -132,15 +130,25 @@ AFRAME.registerComponent("core", {
     const displayedShields = this.playerElement.components.player.shields;
 
     // original speed
-    // const speed = time * 0.0000001 + 0.01 + this.nitro + this.bonusNitro;
+    // const speed =
+    //   0.01 +
+    //   time * 0.0000001 +
+    //   this.nitros.screamNitro +
+    //   this.nitros.bonusNitro;
 
     // faster from the start
-    const speed = 0.04 + time * 0.0000002 + this.nitros.bonusNitro;
-
-    console.log("speed", speed);
+    const speed =
+      0.04 +
+      time * 0.0000002 +
+      this.nitros.screamNitro +
+      this.nitros.bonusNitro;
 
     // average speed
-    // const speed = time * 0.0000001 + 0.03 + this.nitro + this.bonusNitro;
+    // const speed =
+    //   0.03 +
+    //   time * 0.0000002 +
+    //   this.nitros.screamNitro +
+    //   this.nitros.bonusNitro;
 
     this.el.emit("updateTimeState", {
       timeDelta,
@@ -171,7 +179,11 @@ AFRAME.registerComponent("core", {
 
     if (this.magnitude > maxVolume && !this.yeahShown) {
       this.yeahShown = true;
-      this.nitro = 0.05;
+      AFRAME.ANIME({
+        targets: this.nitros,
+        bonusNitro: this.nitros.screamNitro + 0.05,
+        easing: "cubicBezier(0.180, 0.070, 0.000, 2.000)",
+      });
       this.yeahTextEl.emit("showYeahText", null, false);
     }
 
