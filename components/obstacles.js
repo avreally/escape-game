@@ -80,7 +80,7 @@ AFRAME.registerComponent("obstacles", {
     };
 
     // Generating obstacles and bonuses
-    timeoutID = setTimeout(() => generateObstacles(), 2000);
+    timeoutID = setTimeout(() => generateObstacles(), 10000);
 
     // Removing obstacles after collision with player
     this.playerElement.addEventListener("hitstart", () => {
