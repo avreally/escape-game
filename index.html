@@ -11,9 +11,9 @@
       const play = () => {
         window.removeEventListener("click", play);
         window.removeEventListener("touchstart", play);
-        document.querySelectorAll("video, audio").forEach((el) => el.play());
+        document.querySelectorAll("audio").forEach((el) => el.play());
         document
-          .querySelectorAll("[sound],a-sound")
+          .querySelectorAll("#musicSound")
           .forEach((el) => el.components.sound.playSound());
       };
       window.addEventListener("click", play);
@@ -58,15 +58,13 @@
       fog="type: linear; color: black; near: 200; far: 250"
       background="color: black"
     >
-      <a-entity core></a-entity>
-      <a-entity obstacles></a-entity>
       <a-assets>
         <audio
           id="music"
           src="assets/sounds/horizon.mp3"
           autoplay
           loop
-          preload
+          preload="auto"
           crossorigin="anonymous"
         ></audio>
         <a-asset-item id="duck" src="assets/models/duck.obj"></a-asset-item>
@@ -84,8 +82,11 @@
         <img id="letterE" src="assets/images/letter-e.png" />
         <img id="letterR" src="assets/images/letter-r.png" />
       </a-assets>
+      <a-entity core></a-entity>
+      <a-entity obstacles></a-entity>
       <a-entity camera position="0 15 50"></a-entity>
-      <a-sound src="#music"></a-sound>
+      <a-sound src="#music" id="musicSound"></a-sound>
+
       <a-entity moving-grid position="0 0 -60"></a-entity>
       <a-entity
         player
@@ -104,6 +105,14 @@
           src="#duckWire"
           material="shader: phong; color: #0000CC"
         ></a-obj-model>
+        <a-entity
+          sound="src: url(assets/sounds/hit.mp3); poolSize: 4; volume: 20"
+          id="impactSound"
+        ></a-entity>
+        <a-entity
+          sound="src: url(assets/sounds/quack.mp3); poolSize: 4; volume: 20"
+          id="collectSound"
+        ></a-entity>
       </a-entity>
       <a-text
         id="startText"
