@@ -2,6 +2,7 @@ AFRAME.registerComponent("player", {
   init: function () {
     this.shields = 3;
     this.keys = [];
+    this.gameOverSound = document.querySelector("#gameOverSound");
 
     document.addEventListener("keydown", (e) => {
       this.keys[e.key] = true;
@@ -47,8 +48,10 @@ AFRAME.registerComponent("player", {
       }
     }
 
+    // game over
     if (this.shields < 0 && !this.loseShown) {
       this.el.remove();
+      this.gameOverSound.components.sound.playSound();
       this.loseTextEl.emit("showLoseText", null, false);
     }
 

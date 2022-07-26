@@ -150,7 +150,7 @@ AFRAME.registerComponent("core", {
     }
 
     const averageVolume = 110;
-    const maxVolume = 140;
+    const maxVolume = 130;
 
     // showing louderText and yeahText, and increasing speed only after the screamText is shown
     setTimeout(() => {

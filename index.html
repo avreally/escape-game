@@ -1,5 +1,6 @@
 <html>
   <head>
+    <!--    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>-->
     <script src="https://unpkg.com/aframe@1.3.0"></script>
     <script src="https://unpkg.com/aframe-aabb-collider-component@3.1.0/dist/aframe-aabb-collider-component.min.js"></script>
     <script src="components/core.js"></script>
@@ -11,7 +12,7 @@
       const play = () => {
         window.removeEventListener("click", play);
         window.removeEventListener("touchstart", play);
-        document.querySelectorAll("audio").forEach((el) => el.play());
+        document.querySelectorAll("#music").forEach((el) => el.play());
         document
           .querySelectorAll("#musicSound")
           .forEach((el) => el.components.sound.playSound());
@@ -86,7 +87,10 @@
       <a-entity obstacles></a-entity>
       <a-entity camera position="0 15 50"></a-entity>
       <a-sound src="#music" id="musicSound"></a-sound>
-
+      <a-entity
+        sound="src: url(assets/sounds/game-over.mp3); poolSize: 4; volume: 40"
+        id="gameOverSound"
+      ></a-entity>
       <a-entity moving-grid position="0 0 -60"></a-entity>
       <a-entity
         player
@@ -112,6 +116,10 @@
         <a-entity
           sound="src: url(assets/sounds/quack.mp3); poolSize: 4; volume: 20"
           id="collectSound"
+        ></a-entity>
+        <a-entity
+          sound="src: url(assets/sounds/bonus.mp3); poolSize: 4; volume: 15"
+          id="bonusSound"
         ></a-entity>
       </a-entity>
       <a-text
