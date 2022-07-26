@@ -52,7 +52,7 @@ AFRAME.registerComponent("core", {
       try {
         const audioStream = await navigator.mediaDevices.getUserMedia({
           audio: {
-            echoCancellation: true,
+            echoCancellation: false,
           },
         });
         const audioContext = new AudioContext();
@@ -149,8 +149,8 @@ AFRAME.registerComponent("core", {
       this.shieldsElement.innerHTML = "shields gone";
     }
 
-    const averageVolume = 110;
-    const maxVolume = 130;
+    const averageVolume = 100;
+    const maxVolume = 120;
 
     // showing louderText and yeahText, and increasing speed only after the screamText is shown
     setTimeout(() => {
