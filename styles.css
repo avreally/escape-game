@@ -66,11 +66,13 @@ body {
   position: relative;
   color: turquoise;
   font-size: 18px;
-
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding: 32px;
-
   letter-spacing: 2px;
+}
+
+.instructionsLines {
+  height: 24px;
 }
