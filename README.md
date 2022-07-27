@@ -2,15 +2,17 @@
 
 ## About
 
-Constant forward motion type browser game.
+Constant forward motion type browser game. \
+\
+Previous version that requires Circuit Playground can be found [here](https://github.com/avreally/escape-game/tree/circuit).
 
 ## Technology stack
 
 - A-Frame
 - Three.js
 - JavaScript
-- Python
 
 ## Dependencies
 
-To play the game you need Circuit Playground to read user input.
+- Make sure to allow access to microphone.
+- To enable sound click on the screen.
