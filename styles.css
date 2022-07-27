@@ -60,3 +60,17 @@ body {
   background-color: #ff23ff;
   box-shadow: 0 0 10pt 2pt #ff5ef6;
 }
+
+.instructionsText {
+  z-index: 1;
+  position: relative;
+  color: turquoise;
+  font-size: 18px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 32px;
+
+  letter-spacing: 2px;
+}

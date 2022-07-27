@@ -172,7 +172,7 @@ AFRAME.registerComponent("core", {
         });
         this.yeahTextEl.emit("showYeahText", null, false);
       }
-    }, 21000);
+    }, 25000);
 
     const counter = this.letterCounter;
 
